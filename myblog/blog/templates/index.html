@@ -7,6 +7,21 @@
     <title>Document</title>
 </head>
 <body>
-    This is my django templates demo.
+    <h1>This is my django templates demo.</h1>
+    <form action="#">
+        
+        {% csrf_token %}
+        
+        <p><input type="text" name = "first_name" placeholder="Enter First name"></p>
+        {{form.as_p}}
+
+        <!-- 
+            get - > url
+            post - > form body
+            if limited parameter and non - sensitive data -> we use get request otherwose we use post request
+            sensitive data -> email , password, visa/debit card info
+         -->
+        <input type="submit" value = "REGISTER">
+    </form>
 </body>
 </html>

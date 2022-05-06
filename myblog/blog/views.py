@@ -1,10 +1,43 @@
+from contextvars import Context
 from django.shortcuts import render
+from blog.forms import UserRegisterForm
+from blog.models import AppUser
+def demo(request):
+    urf = UserRegisterForm
+    template = 'user/create.html'
+    context = {'form':urf,}
+    return render(request,template,context)
 
-# Create your views here.
-def demoIndex(request):
-    template = 'index.html'
-    return render(request, template)
-#render()-> takes three parameter among which two of them are compulsory
-#  1. request
-#  2. templates
-#  3. data(must be in dict)optional parameter
+def register(request):
+    if request.method =="POST":
+        user = AppUser()
+        user.first_name = request.POST.get('first_name')
+        user.middle_name = request.POST.get('middle_name')
+        user.last_name = request.POST.get('last_name')
+        user.email = request.POST.get('email')
+        user.contact = request.POST.get('contact')
+        user.password = request.POST.get('password')
+        urf = UserRegisterForm
+        template = 'users/create.html'
+        context = {
+            'form':urf,
+            'msg':'Registered Sucessfully',
+            'user':user
+        }
+        user.save()
+        return render(request,template,context)       
+        
+    else:
+        
+        urf = UserRegisterForm
+        template = 'users/create.html'
+        context = {'form': urf, 'msg': 'Create'}
+        return render(request,template,context)
+def user_show(request,id):
+    return render(request)
+
+def user_edit(request,id):
+    return render(request)
+
+def user_login(request,id):
+    return render(request)
